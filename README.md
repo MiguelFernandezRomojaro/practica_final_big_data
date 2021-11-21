@@ -258,7 +258,29 @@ Una vez creado el “Docker-compose.yml”, simplemente queda situarse en el mis
 ```
 sudo docker-compose up
 ```
-
+## DOCKER-COMPOSE CON GOOGLE CLOUD
+De igual manera que en el apartado anterior, se va a contenerizar la aplicación, pero en vez de en una máquina virtual local, se va a realizar mediante una máquina virtual Compute Engine de Google Cloud en la nube, es decir, remota.
+Para ello se han de instalar una serie de programas necesarios para la ejecución de la aplicación, ya que la máquina viene vacía.
+En primer lugar, se establece una sesión SSH para subir los ficheros de la aplicación. Una vez subido se instala un descompresor para descomprimir el fichero subido:
+### INSTALAR UNZIP-7Z
+```
+sudo apt install p7zip-full
+7za x practica_final_2019.7z.001
+```
+### INSTALAR DOCKER
+```
+sudo apt-get install docker.io
+```
+### INSTALAR COMPOSE
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo chmod 777 /home/fromojaromiguel/practica_big_data_2019/docker/docker-compose.yml
+```
+A modo de comprobación:
+```
+docker-compose --version 
+```
 
 
 
