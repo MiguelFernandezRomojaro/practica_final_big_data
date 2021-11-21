@@ -156,8 +156,8 @@ Acceder a la aplicación web en http://localhost:5000/flights/delays/predict_kaf
 Finalmente, se va a comprobar que el retraso se ha registrado correctamente en MongoDB. Para ello conectar con MongoDB y buscar en la base de datos:
 ```
 mongo
->	use agile_data_science;
->	db.flight_delay_classification_response.find();
+>use agile_data_science;
+>db.flight_delay_classification_response.find();
 ```
 Output:
 ```
