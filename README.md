@@ -1,8 +1,8 @@
 # practica_final_big_data
-# INTRODUCCIÓN
+## INTRODUCCIÓN
 Para la realización de este proyecto se ha utilizado una Máquina Virtual Ubuntu 18.04.
 
-# INSTALACIÓN Y CONFIGURACIÓN
+## INSTALACIÓN Y CONFIGURACIÓN
 Primeramente, se ha procedido a la instalación y configuración de los programas necesarios en la Máquina Virtual.
 •	Intellij (jdk_1.8)
 •	Python3 (versión sugerida 3.7)
