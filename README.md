@@ -168,8 +168,11 @@ Output:
 ```
 ## DOCKERFILES
 A continuación  se va a proceder a la contenerización del sistema mediante el uso de Docker. Se va a implementar la aplicación de igual manera, con la diferencia de que se van a separar los servicios de Zookeeper, Kafka, MongoDB, Spark y Flask, configurando cada uno de los mismo en contenedores Docker independientes.
+
 El procedimiento general para el despliegue y configuración de este sistema consiste en la creación de un fichero de configuración Dockerfile para cada contenedor, que importará una imagen base y sobre esa imagen instalará programas, ejecutará comandos, añadirá variables de entorno, etc. para lograr tener una imagen ajustada a las necesidades del proyecto.
+
 Con el fichero de configuración ya creado, se construirá la imagen del contenedor Docker deseado, y finalmente, con esa imagen se arrancará el contenedor Docker que contendrá el servicio deseado.
+
 La comunicación entre los contenedores Docker se va a realizar mediante la conexión mediante puertos en la red local (localhost).
 ### DOCKERFILE ZOOKEEPER
 Para este contenedor se ha descargado una imagen base de zookeeper (última versión) desde bitnami y se ha configurado el puerto sobre el que funcionará el contenedor, que en el caso de Zookeeper, tiene asignado por defecto el puerto 2181.
@@ -317,11 +320,13 @@ Con Docker-Compose se van a contenerizar los servicios de Zookeeper, Kafka, Mong
 sudo docker-compose up -d
 ```
 ![image](https://user-images.githubusercontent.com/94782443/142883370-5474b5c6-a705-4682-ab4e-c28a9f3196e6.png)
+
 Comprobación contenedores creados:
 ```
 sudo docker ps
 ```
 ![image](https://user-images.githubusercontent.com/94782443/142883398-0b74ee2d-db02-438a-8e56-453306b2fbdc.png)
+
 ### IMPORTAR DISTANCIAS en MongoDB
 Importar todos los datos enriquecidos de las aerolíneas como la colección "aerolíneas". Para ello ejecutar el script import_distances.sh con el siguiente comando:
 ```
@@ -341,8 +346,10 @@ lynx http://localhost:5000/flights/delays/predict_kafka
 ```
 La siguiente imagen muestra el menú de la aplicación:
 ![image](https://user-images.githubusercontent.com/94782443/142883483-618317f7-8f21-489c-a41b-ea1b6c70eede.png)
+
 Tras consultar un retraso, se obtiene una salida de confirmación del sistema:
 ![image](https://user-images.githubusercontent.com/94782443/142883526-bd6e0d61-47b9-4d15-a2c0-0b88df624b29.png)
+
 ### COMPROBAR RESULTADOS en MongoDB
 Finalmente comprobamos que la operación se ha registrado de manera satisfactoria consultando MongoDB. Entrar al contenedor con el comando:
 ```
@@ -356,6 +363,7 @@ mongo
 ```
 Obteniendo la siguiente salida con los registros:
 ![image](https://user-images.githubusercontent.com/94782443/142883588-b9c50d26-8017-4d55-940c-7c1a594ea5e6.png)
+
 
 
 
