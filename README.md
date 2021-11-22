@@ -281,6 +281,81 @@ A modo de comprobación:
 ```
 docker-compose --version 
 ```
+## DOCKER-COMPOSE CON GOOGLE CLOUD
+De igual manera que en el apartado anterior, se va a contenerizar la aplicación, pero en vez de en una máquina virtual local, se va a realizar mediante una máquina virtual Compute Engine de Google Cloud en la nube, es decir, remota.
+Para ello se han de instalar una serie de programas necesarios para la ejecución de la aplicación, ya que la máquina viene vacía.
+En primer lugar, se establece una sesión SSH para subir los ficheros de la aplicación. Una vez subido se instala un descompresor para descomprimir el fichero subido:
+### INSTALAR UNZIP-7Z
+```
+sudo apt update
+sudo apt install p7zip-full
+7za x practica_final_2019.7z.001
+```
+### INSTALAR DOCKER
+```
+sudo apt-get install docker.io
+```
+### INSTALAR COMPOSE
+```
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo chmod 777 /home/fromojaromiguel/practica_big_data_2019/docker/docker-compose.yml
+docker-compose --version 
+```
+### CONSTRUCCIÓN IMAGENES DOCKER 
+A continuación se procede a la creación de la imágenes docker, situarse en los directorios donde se ubican los Dockerfile de cada servicio (Zookeeper, Kafka, MongoDB, Spark y Flask) y ejecutar los siguientes comandos en la consola:
+```
+sudo docker build -t=zookeeper-image .
+sudo docker build -t=kafka-image .
+sudo docker build -t=mongodb-image .
+sudo docker build -t=spark-image .
+sudo docker build -t=flask-image .
+```
+### ARRANCAR COMPOSE
+Con Docker-Compose se van a contenerizar los servicios de Zookeeper, Kafka, MongoDB, Spark y Flask a partir de las imágenes generadas con los Dockerfiles:
+```
+sudo docker-compose up -d
+```
+![image](https://user-images.githubusercontent.com/94782443/142883370-5474b5c6-a705-4682-ab4e-c28a9f3196e6.png)
+Comprobación contenedores creados:
+```
+sudo docker ps
+```
+![image](https://user-images.githubusercontent.com/94782443/142883398-0b74ee2d-db02-438a-8e56-453306b2fbdc.png)
+### IMPORTAR DISTANCIAS en MongoDB
+Importar todos los datos enriquecidos de las aerolíneas como la colección "aerolíneas". Para ello ejecutar el script import_distances.sh con el siguiente comando:
+```
+sudo docker exec -it docker_mongodb-container_1 bash 
+cd CarpetaMongoAux/
+/bin/bash resources/import_distances.sh
+```
+### INSTALAR INTERFAZ GRAFICA NAVEGADOR
+En esta instancia de Google Cloud no hay instalada ninguna interfaz gráfica, es por ello que, para el un uso más amigable de la aplicación y su comprobación, se instala la interfaz gráfica del navegador Lynx para ejecutar la aplicación de vuelos:
+Instalar la interfaz gráfica Lynx:
+```
+sudo apt-get install Lynx
+```
+Abrir la interfaz gráfica con la página de la aplicación:
+```
+lynx http://localhost:5000/flights/delays/predict_kafka
+```
+La siguiente imagen muestra el menú de la aplicación:
+![image](https://user-images.githubusercontent.com/94782443/142883483-618317f7-8f21-489c-a41b-ea1b6c70eede.png)
+Tras consultar un retraso, se obtiene una salida de confirmación del sistema:
+![image](https://user-images.githubusercontent.com/94782443/142883526-bd6e0d61-47b9-4d15-a2c0-0b88df624b29.png)
+### COMPROBAR RESULTADOS en MongoDB
+Finalmente comprobamos que la operación se ha registrado de manera satisfactoria consultando MongoDB. Entrar al contenedor con el comando:
+```
+sudo docker exec -it docker_mongodb-container_1 bash
+```
+Una vez dentro:
+```
+mongo
+>use 
+>db.flight_delay_classification_response.find();
+```
+Obteniendo la siguiente salida con los registros:
+![image](https://user-images.githubusercontent.com/94782443/142883588-b9c50d26-8017-4d55-940c-7c1a594ea5e6.png)
 
 
 
