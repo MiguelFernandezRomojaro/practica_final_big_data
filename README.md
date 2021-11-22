@@ -324,9 +324,11 @@ Abrir la interfaz gráfica con la página de la aplicación:
 lynx http://localhost:5000/flights/delays/predict_kafka
 ```
 La siguiente imagen muestra el menú de la aplicación:
+
 ![image](https://user-images.githubusercontent.com/94782443/142883483-618317f7-8f21-489c-a41b-ea1b6c70eede.png)
 
 Tras consultar un retraso, se obtiene una salida de confirmación del sistema:
+
 ![image](https://user-images.githubusercontent.com/94782443/142883526-bd6e0d61-47b9-4d15-a2c0-0b88df624b29.png)
 
 ### Comprobar resultados en MongoDB
@@ -341,6 +343,7 @@ mongo
 >db.flight_delay_classification_response.find();
 ```
 Obteniendo la siguiente salida con los registros:
+
 ![image](https://user-images.githubusercontent.com/94782443/142883588-b9c50d26-8017-4d55-940c-7c1a594ea5e6.png)
 
 
