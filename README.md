@@ -241,7 +241,7 @@ Arranque del contenedor de Flask a partir de la imagen Flask:
 sudo docker run --name flask-container --network host flask-image
 ```
 ## Docker-compose
-Con Docker-Compose se van a contenerizar los servicios de Zookeeper, Kafka, MongoDB, Spark y Flask a partir de las imágenes generadas con los DockerFiles, la diferencia con el aparado anterior es que los servicios se van a larzar/arrancar todos a la vez en lugar de uno a uno.
+Con Docker-Compose se van a contenerizar los servicios de Zookeeper, Kafka, MongoDB, Spark y Flask a partir de las imágenes generadas con los Dockerfiles, la diferencia con el aparado anterior es que los servicios se van a larzar/arrancar todos a la vez en lugar de uno a uno.
 Para lograr el objetivo, primeramente se tiene que instalar Compose en la Máquina Virtual:
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
