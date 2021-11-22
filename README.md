@@ -1,8 +1,8 @@
 # practica_final_big_data
-## INTRODUCCIÓN
+## Introducción
 Para la realización de este proyecto se ha utilizado una Máquina Virtual Ubuntu 18.04.
 
-## INSTALACIÓN Y CONFIGURACIÓN
+## Instalación y configuración
 Primeramente, se ha procedido a la instalación y configuración de los programas necesarios en la Máquina Virtual.
 -	Intellij (jdk_1.8)
 -	Python3 (versión sugerida 3.7)
@@ -14,7 +14,7 @@ Primeramente, se ha procedido a la instalación y configuración de los programa
 -	Zookeeper
 -	Kafka (versión obligatoria kafka_2.12-3.0.0)
 
-## INICIO PRÁCTICA
+## Inicio práctica
 Una vez se tenga la Máquina Virtual donde se va a desarrollar la práctica bien configurada, se procede a la descarga de datos. Para ello cambie de directorio al practica_big_data_2019
 ```
 cd practica_big_data_2019
@@ -33,13 +33,13 @@ A continuación, se descargan los datos para el análisis predictivo en tiempo r
 ```
 resources/download_data.sh
 ```
-## INICIAR ZOOKEEPER
+## Iniciar Zookeeper
 Diríjase al directorio donde haya instalado Kafka y abra una consola de comandos (pulsando F4) e inicie y configure el servicio Zookeeper con el siguiente comando:
 ```
 cd Kafka/kafka_2.12-3.0.0
 bin/zookeeper-server-start.sh config/zookeeper.properties
 ```
-## INICIAR KAFKA
+## Iniciar Kafka
 Diríjase al directorio donde haya instalado Kafka y abra una consola de comandos (pulsando F4) e inicie y configure el servicio Kafka con el siguiente comando:
 ```
 bin/kafka-server-start.sh config/server.properties
@@ -65,12 +65,12 @@ Output:
 ```
 flight_delay_classification_request
 ```
-## IMPORTAR DATOS AEROLINEAS
+## Importar datos aerolíneas
 Importar todos los datos enriquecidos de las aerolíneas como la colección "aerolíneas". Para ello ejecutar el script import_distances.sh con el siguiente comando:
 ```
 ./resources/import_distances.sh
 ```
-## ENTRENAMIENTO PARA OBTENER EL MODELO DE DATOS
+## Entrenamiento para obtener el modelo de datos
 Primeramente, establecer las variables de entorno necesarias para el desarrollo y funcionamiento del sistema.
 Establecer la variable de entorno JAVA_HOME en el directorio donde se haya realizado la instalación de Java, en el caso concreto de este proyecto:
 ```
@@ -104,17 +104,17 @@ A modo de comprobación se puede listar el directorio de modelos:
 ```
 ls ./models
 ```
-## ARRANCAR EL PREDICTOR DE VUELOS
+## Arrancar el predictor de vuelos
 En primer lugar, ir a la clase MakePrediction.scala en el directorio /practica_big_data_2019/flight_prediction/src y modificar la variable path a la ruta donde se haya clonado el repositorio “practica_big_data_2019”:
 ```
 val base_path= "/home/upm/Desktop/practica_big_data_2019"
 ```
 Para ejecutar ese código, se puede usar el compilador de código Intellij o spark-submit. 
-## EJECUTAR CÓDIGO MakePrediction.scala con Intellij
+## Ejecutar código MakePrediction.scala con Intellij
 Abrir el programa previamente instalado (se ha instalado junto a su interfaz de usuario) e importar el proyecto scala “flight_prediction”. Intellij informará sobre la necesidad de instalar unas librerías de scala para el correcto funcionamiento del proyecto, instalar dichas librerías y una vez instaladas, ejecutar el proyecto.
 
 ![image](https://user-images.githubusercontent.com/94782443/142758749-9ae92a32-0f3a-4ac8-80bb-f82f622ec653.png)
-## EJECUTAR CÓDIGO MakePrediction.scala con Spark-submit
+## Ejecutar código MakePrediction.scala con Spark-submit
 Primeramente se usará el compilador SBT con el objetivo de compilar el proyecto “flight_prediction” y generar un JAR de la aplicación para su uso con Spark-submit.
 Compilar el proyecto “flight_prediction”, abrir una consola de comandos en el directorio /practica_big_data_2019/flight_prediction y ejecutar:
 ```
@@ -131,7 +131,7 @@ Finalmente, con la herramienta Spark-submit, arrancar el Spark-Streaming con los
  --packages org.mongodb.spark:mongo-spark-connector_2.12:3.0.1,org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.2
  /home/upm/Desktop/practica_big_data_2019/flight_prediction/target/scala-2.12/flight_prediction_2.12-0.1.jar 
 ```
-## CONFIGURACIÓN DE FLASK PARA LA APLICACIÓN WEB DE PREDICCION DE VUELOS
+## Configuración de Flask para la aplicación web de predicción de vuelos
 Establecer la variable de entorno con el path al repositorio “practica_big_data_2019” descargado, en este caso:
 ```
 export PROJECT_HOME=/home/upm/Desktop/practica_big_data_2019
@@ -150,9 +150,9 @@ cd practica_big_data_2019/resources/web
 python3 predict_flask.py
 ```
 Acceder a la aplicación web en http://localhost:5000/flights/delays/predict_kafka y añadir algún retraso.
-
 ![image](https://user-images.githubusercontent.com/94782443/142759150-2255d9a4-a2fd-46c6-a099-3718220646b8.png)
-## COMPROBACIÓN DEL RETRASO REGISTRADO EN MongoDB
+
+## Comprobación del retraso registrado en MongoDB
 Finalmente, se va a comprobar que el retraso se ha registrado correctamente en MongoDB. Para ello conectar con MongoDB y buscar en la base de datos:
 ```
 mongo
@@ -166,7 +166,7 @@ Output:
 { "_id" : ObjectId("618ac8e1244a44306a3582a0"), "Origin" : "ATL", "DayOfWeek" : 6, "DayOfYear" : 360, "DayOfMonth" : 25, "Dest" : "SFO", "DepDelay" : 5, "Timestamp" : ISODate("2021-11-09T19:15:42.262Z"), "FlightDate" : ISODate("2016-12-25T00:00:00Z"), "Carrier" : "AA", "UUID" : "d7586a79-fa5c-4335-b0c8-4b3539ff5ffb", "Distance" : 2139, "Route" : "ATL-SFO", "Prediction" : 2 }
 { "_id" : ObjectId("619a26c21abac41411b3904c"), "Origin" : "ATL", "DayOfWeek" : 6, "DayOfYear" : 360, "DayOfMonth" : 25, "Dest" : "SFO", "DepDelay" : 15, "Timestamp" : ISODate("2021-11-21T11:00:16.706Z"), "FlightDate" : ISODate("2016-12-24T23:00:00Z"), "Carrier" : "AA", "UUID" : "eb9c1472-f75f-4d6f-983c-21c6a42da04d", "Distance" : 2139, "Route" : "ATL-SFO", "Prediction" : 2 }
 ```
-## DOCKERFILES
+## Dockerfiles
 A continuación  se va a proceder a la contenerización del sistema mediante el uso de Docker. Se va a implementar la aplicación de igual manera, con la diferencia de que se van a separar los servicios de Zookeeper, Kafka, MongoDB, Spark y Flask, configurando cada uno de los mismo en contenedores Docker independientes.
 
 El procedimiento general para el despliegue y configuración de este sistema consiste en la creación de un fichero de configuración Dockerfile para cada contenedor, que importará una imagen base y sobre esa imagen instalará programas, ejecutará comandos, añadirá variables de entorno, etc. para lograr tener una imagen ajustada a las necesidades del proyecto.
@@ -174,7 +174,7 @@ El procedimiento general para el despliegue y configuración de este sistema con
 Con el fichero de configuración ya creado, se construirá la imagen del contenedor Docker deseado, y finalmente, con esa imagen se arrancará el contenedor Docker que contendrá el servicio deseado.
 
 La comunicación entre los contenedores Docker se va a realizar mediante la conexión mediante puertos en la red local (localhost).
-### DOCKERFILE ZOOKEEPER
+### Dockerfile Zookeeper
 Para este contenedor se ha descargado una imagen base de zookeeper (última versión) desde bitnami y se ha configurado el puerto sobre el que funcionará el contenedor, que en el caso de Zookeeper, tiene asignado por defecto el puerto 2181.
 
 Creación de la imagen Zookeeper:
@@ -185,7 +185,7 @@ Arranque del contenedor de Zookeeper a partir de la imagen Zookeeper:
 ```
 sudo docker run --name zookeeper-container --network host zookeeper-image.
 ```
-### DOCKERFILE KAFKA
+### Dockerfile kafka
 Para este contenedor se ha descargado una imagen base de kafka (última versión) desde wurstmeister y se ha configurado el puerto sobre el que funcionará el contenedor, que en el caso de Kafka, tiene asignado por defecto el puerto 9092. Dentro de las variables de entorno del Dockerfile se define que Kafka actuará sobre la red local (localhost), se conecta al contenedor Zookeeper a través del puerto 2181 de la red local y se crea directamente un topic llamado “flight_delay_classification_request” en 1 partición y replicado en factor de 1.
 
 Creación de la imagen Kafka:
@@ -196,7 +196,7 @@ Arranque del contenedor de Kafka a partir de la imagen Kafka:
 ```
 sudo docker run --name kafka-container --network host kafka-image
 ```
-### DOCKERFILE MONGODB
+### Dockerfile MongoDB
 Para este contenedor se ha descargado una imagen base de una máquina Ubuntu_18.04 y sobre esa máquina se ha instalado MongoDB. El puerto por defecto de MongoDB es el 27017. Mediante ENTRYPOINT definimos el comando que se ejecutará en el momento de arranque del contenedor Docker para el arranque del daemon de MongoDB. Para el correcto funcionamiento, se copia la carpeta “practica_final_2019” dentro del contenedor.
 
 Creación de la imagen MongoDB:
@@ -216,7 +216,7 @@ Ya dentro del contenedor MongoDB, ir a la carpeta donde se haya copiado la carpe
 cd CarpetaMongoAux/
 /bin/bash resources/import_distances.sh
 ```
-### DOCKERFILE SPARK
+### Dockerfile Spark
 Para este contenedor se ha descargado una imagen base de una máquina Ubuntu_18.04 y sobre esa máquina se han instalado los programas, herramientas y ficheros necesarios para el funcionamiento de Spark. El puerto asignado por defecto a Spark es el 7077.
 A modo de resumen, se instala una configuración por defecto, Java, Python, PIP, SBT, Scala, Spark. Se copia la carpeta completa del proyecto “practica_final_2019” dentro del contenedor, se compila el proyecto Scala “flight_prediction” y se genera un JAR de la aplicación para su posterior uso con Spark-submit.
 Para resolver la problemática de que sólo se puede ejecutar una orden en el ENTRYPOINT, se ha creado un fichero SH que contiene los tres comandos que se necesitan ejecutar en la construcción del contenedor Spark: arrancar el master de Spark, arrancar los slaves de Spark y arrancar la aplicación MakePrediction generada con SBT.
@@ -229,7 +229,7 @@ Arranque del contenedor de Spark a partir de la imagen Spark:
 ```
 sudo docker run --name spark-container --network host spark-image
 ```
-### DOCKERFILE FLASK
+### Dockerfile Flask
 Para este contenedor se ha descargado una imagen base con el python3.7 ya configurado y se han instalado las librerías del requirements.txt, el puerto por defecto del Flask es el 3000. Par lograr el funcionamiento de Flask en el contenedor Docker, se ha copiado la carpeta del proyecto “practica_final_2019” dentro del contenedor. Finalmente, se ejecuta arranca el Flask en el ENTRYPOINT con el programa “predict_flask.py”.
 
 Creación de la imagen Flask:
@@ -240,7 +240,7 @@ Arranque del contenedor de Flask a partir de la imagen Flask:
 ```
 sudo docker run --name flask-container --network host flask-image
 ```
-## DOCKER-COMPOSE
+## Docker-compose
 Con Docker-Compose se van a contenerizar los servicios de Zookeeper, Kafka, MongoDB, Spark y Flask a partir de las imágenes generadas con los DockerFiles, la diferencia con el aparado anterior es que los servicios se van a larzar/arrancar todos a la vez en lugar de uno a uno.
 Para lograr el objetivo, primeramente se tiene que instalar Compose en la Máquina Virtual:
 ```
@@ -261,20 +261,20 @@ Una vez creado el “Docker-compose.yml”, simplemente queda situarse en el mis
 ```
 sudo docker-compose up
 ```
-## DOCKER-COMPOSE CON GOOGLE CLOUD
+## Docker-compose en Google Cloud
 De igual manera que en el apartado anterior, se va a contenerizar la aplicación, pero en vez de en una máquina virtual local, se va a realizar mediante una máquina virtual Compute Engine de Google Cloud en la nube, es decir, remota.
 Para ello se han de instalar una serie de programas necesarios para la ejecución de la aplicación, ya que la máquina viene vacía.
 En primer lugar, se establece una sesión SSH para subir los ficheros de la aplicación. Una vez subido se instala un descompresor para descomprimir el fichero subido:
-### INSTALAR UNZIP-7Z
+### Instalar descompresor
 ```
 sudo apt install p7zip-full
 7za x practica_final_2019.7z.001
 ```
-### INSTALAR DOCKER
+### Instalar Docker
 ```
 sudo apt-get install docker.io
 ```
-### INSTALAR COMPOSE
+### Instalar Compose
 ```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
@@ -284,28 +284,7 @@ A modo de comprobación:
 ```
 docker-compose --version 
 ```
-## DOCKER-COMPOSE CON GOOGLE CLOUD
-De igual manera que en el apartado anterior, se va a contenerizar la aplicación, pero en vez de en una máquina virtual local, se va a realizar mediante una máquina virtual Compute Engine de Google Cloud en la nube, es decir, remota.
-Para ello se han de instalar una serie de programas necesarios para la ejecución de la aplicación, ya que la máquina viene vacía.
-En primer lugar, se establece una sesión SSH para subir los ficheros de la aplicación. Una vez subido se instala un descompresor para descomprimir el fichero subido:
-### INSTALAR UNZIP-7Z
-```
-sudo apt update
-sudo apt install p7zip-full
-7za x practica_final_2019.7z.001
-```
-### INSTALAR DOCKER
-```
-sudo apt-get install docker.io
-```
-### INSTALAR COMPOSE
-```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo chmod 777 /home/fromojaromiguel/practica_big_data_2019/docker/docker-compose.yml
-docker-compose --version 
-```
-### CONSTRUCCIÓN IMAGENES DOCKER 
+### Construcción de imágenes Docker 
 A continuación se procede a la creación de la imágenes docker, situarse en los directorios donde se ubican los Dockerfile de cada servicio (Zookeeper, Kafka, MongoDB, Spark y Flask) y ejecutar los siguientes comandos en la consola:
 ```
 sudo docker build -t=zookeeper-image .
@@ -314,7 +293,7 @@ sudo docker build -t=mongodb-image .
 sudo docker build -t=spark-image .
 sudo docker build -t=flask-image .
 ```
-### ARRANCAR COMPOSE
+### Arrancar Compose
 Con Docker-Compose se van a contenerizar los servicios de Zookeeper, Kafka, MongoDB, Spark y Flask a partir de las imágenes generadas con los Dockerfiles:
 ```
 sudo docker-compose up -d
@@ -327,14 +306,14 @@ sudo docker ps
 ```
 ![image](https://user-images.githubusercontent.com/94782443/142883398-0b74ee2d-db02-438a-8e56-453306b2fbdc.png)
 
-### IMPORTAR DISTANCIAS en MongoDB
+### Importar distancias en MongoDB
 Importar todos los datos enriquecidos de las aerolíneas como la colección "aerolíneas". Para ello ejecutar el script import_distances.sh con el siguiente comando:
 ```
 sudo docker exec -it docker_mongodb-container_1 bash 
 cd CarpetaMongoAux/
 /bin/bash resources/import_distances.sh
 ```
-### INSTALAR INTERFAZ GRAFICA NAVEGADOR
+### Instalar interfaz gráfica navegador
 En esta instancia de Google Cloud no hay instalada ninguna interfaz gráfica, es por ello que, para el un uso más amigable de la aplicación y su comprobación, se instala la interfaz gráfica del navegador Lynx para ejecutar la aplicación de vuelos:
 Instalar la interfaz gráfica Lynx:
 ```
@@ -350,7 +329,7 @@ La siguiente imagen muestra el menú de la aplicación:
 Tras consultar un retraso, se obtiene una salida de confirmación del sistema:
 ![image](https://user-images.githubusercontent.com/94782443/142883526-bd6e0d61-47b9-4d15-a2c0-0b88df624b29.png)
 
-### COMPROBAR RESULTADOS en MongoDB
+### Comprobar resultados en MongoDB
 Finalmente comprobamos que la operación se ha registrado de manera satisfactoria consultando MongoDB. Entrar al contenedor con el comando:
 ```
 sudo docker exec -it docker_mongodb-container_1 bash
