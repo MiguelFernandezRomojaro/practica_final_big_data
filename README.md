@@ -66,6 +66,19 @@ Output:
 flight_delay_classification_request
 ```
 ## Importar datos aerolíneas
+Primeramente, comprobar que se tiene MongoDB activo:
+```
+service mongodb status
+```
+Para activarlo en el caso de que este parado:
+```
+service mongodb start
+```
+Para pararlo o rearrancarlo:
+```
+service mongodb stop
+service mongodb restart
+```
 Importar todos los datos enriquecidos de las aerolíneas como la colección "aerolíneas". Para ello ejecutar el script import_distances.sh con el siguiente comando:
 ```
 ./resources/import_distances.sh
@@ -110,11 +123,12 @@ En primer lugar, ir a la clase MakePrediction.scala en el directorio /practica_b
 val base_path= "/home/upm/Desktop/practica_big_data_2019"
 ```
 Para ejecutar ese código, se puede usar el compilador de código Intellij o spark-submit. 
-## Ejecutar código MakePrediction.scala con Intellij
+### Ejecutar código MakePrediction.scala con Intellij
 Abrir el programa previamente instalado (se ha instalado junto a su interfaz de usuario) e importar el proyecto scala “flight_prediction”. Intellij informará sobre la necesidad de instalar unas librerías de scala para el correcto funcionamiento del proyecto, instalar dichas librerías y una vez instaladas, ejecutar el proyecto.
 
 ![image](https://user-images.githubusercontent.com/94782443/142758749-9ae92a32-0f3a-4ac8-80bb-f82f622ec653.png)
-## Ejecutar código MakePrediction.scala con Spark-submit
+
+### Ejecutar código MakePrediction.scala con Spark-submit
 Primeramente se usará el compilador SBT con el objetivo de compilar el proyecto “flight_prediction” y generar un JAR de la aplicación para su uso con Spark-submit.
 Compilar el proyecto “flight_prediction”, abrir una consola de comandos en el directorio /practica_big_data_2019/flight_prediction y ejecutar:
 ```
@@ -149,11 +163,12 @@ Dirigirse al directorio /practica_big_data_2019/resources/web y ejecutar el scri
 cd practica_big_data_2019/resources/web
 python3 predict_flask.py
 ```
-Acceder a la aplicación web en http://localhost:5000/flights/delays/predict_kafka y añadir algún retraso.
+Acceder a la aplicación web en http://localhost:5000/flights/delays/predict_kafka y solicitar el cálculo del retraso del vuelo ingresado.
+
 ![image](https://user-images.githubusercontent.com/94782443/142759150-2255d9a4-a2fd-46c6-a099-3718220646b8.png)
 
 ## Comprobación del retraso registrado en MongoDB
-Finalmente, se va a comprobar que el retraso se ha registrado correctamente en MongoDB. Para ello conectar con MongoDB y buscar en la base de datos:
+Finalmente, se va a comprobar que se ha registrado correctamente en MongoDB. Para ello conectar con MongoDB y buscar en la base de datos:
 ```
 mongo
 >use agile_data_science;
@@ -167,7 +182,7 @@ Output:
 { "_id" : ObjectId("619a26c21abac41411b3904c"), "Origin" : "ATL", "DayOfWeek" : 6, "DayOfYear" : 360, "DayOfMonth" : 25, "Dest" : "SFO", "DepDelay" : 15, "Timestamp" : ISODate("2021-11-21T11:00:16.706Z"), "FlightDate" : ISODate("2016-12-24T23:00:00Z"), "Carrier" : "AA", "UUID" : "eb9c1472-f75f-4d6f-983c-21c6a42da04d", "Distance" : 2139, "Route" : "ATL-SFO", "Prediction" : 2 }
 ```
 ## Dockerfiles
-A continuación  se va a proceder a la contenerización del sistema mediante el uso de Docker. Se va a implementar la aplicación de igual manera, con la diferencia de que se van a separar los servicios de Zookeeper, Kafka, MongoDB, Spark y Flask, configurando cada uno de los mismo en contenedores Docker independientes.
+A continuación se va a proceder a la contenerización del sistema mediante el uso de Docker. Se va a implementar la aplicación de igual manera, con la diferencia de que se van a separar los servicios de Zookeeper, Kafka, MongoDB, Spark y Flask, configurando cada uno de los mismo en contenedores Docker independientes.
 
 El procedimiento general para el despliegue y configuración de este sistema consiste en la creación de un fichero de configuración Dockerfile para cada contenedor, que importará una imagen base y sobre esa imagen instalará programas, ejecutará comandos, añadirá variables de entorno, etc. para lograr tener una imagen ajustada a las necesidades del proyecto.
 
