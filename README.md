@@ -1,5 +1,5 @@
 # practica_final_big_data
-## Introducción
+
 Para la realización de este proyecto se ha utilizado una Máquina Virtual Ubuntu 18.04.
 
 ## Instalación y configuración
