@@ -87,7 +87,7 @@ Importar todos los datos enriquecidos de las aerolíneas como la colección "aer
 Primeramente, establecer las variables de entorno necesarias para el desarrollo y funcionamiento del sistema.
 Establecer la variable de entorno JAVA_HOME en el directorio donde se haya realizado la instalación de Java, en el caso concreto de este proyecto:
 ```
-export JAVA_HOME=/usr/
+export JAVA_HOME=/usr
 ```
 A modo de comprobación se ejecuta:
 ```
@@ -95,7 +95,7 @@ echo $JAVA_HOME
 ```
 Output:
 ```
-/usr/
+/usr
 ```
 También se debe de establecer la variable de entorno SPARK_HOME relativa a Spark, en el directorio donde se haya realizado la instalación de Spark, en el caso concreto de este proyecto:
 ```
